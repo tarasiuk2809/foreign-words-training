@@ -17,9 +17,9 @@ const vocabulary = [
 
 const buttonNext = document.querySelector('#next');
 const buttonBack = document.querySelector('#back');
-let engWord = document.querySelector('#eng');
-let rusWord = document.querySelector('#rus');
-let example = document.querySelector('#example');
+const engWord = document.querySelector('#eng');
+const rusWord = document.querySelector('#rus');
+const example = document.querySelector('#example');
 const buttonExam = document.querySelector('#exam');
 const examCards = document.querySelector('#exam-cards');
 const allExamCards = examCards.children;
@@ -115,8 +115,8 @@ function startExam() {
     const fragment = new DocumentFragment();
     let currentIndex = 0;
     for (let counter = 0; counter < randomIndexes.length; counter++) {
-        let divEng = document.createElement('div');
-        let divRus = document.createElement('div');
+        const divEng = document.createElement('div');
+        const divRus = document.createElement('div');
         divRus.classList.add('card');
         divEng.classList.add('card');
         currentIndex = randomIndexes[counter];
@@ -130,17 +130,19 @@ function startExam() {
 }
 
 
-function selectExamCard(event) {
-    let element = event.target;
-    let firstCard = checkExamCards();
 
-    if (element.classList.contains('card') && firstCard === undefined) {
+function selectExamCard(event) {
+    const element = event.target;
+    const firstCard = checkExamCards();
+
+    if (element.classList.contains('card') && !element.classList.contains('fade-out') && firstCard === undefined) {
         element.classList.add('correct');
     }
-    else if (element.classList.contains('card') && firstCard != undefined) {
-        let firstWordId = vocabulary.find(word => word.rus === firstCard.textContent || word.eng === firstCard.textContent).id;
-        let secondWordId = vocabulary.find(word => word.rus == element.textContent || word.eng == element.textContent).id;
-        if (firstWordId === secondWordId) {
+    else if (element.classList.contains('card') && firstCard != undefined && !element.classList.contains('fade-out')) {
+        const firstWordId = vocabulary.find(word => word.rus === firstCard.textContent || word.eng === firstCard.textContent).id;
+        const secondWordId = vocabulary.find(word => word.rus == element.textContent || word.eng == element.textContent).id;
+        const firstWordText = firstCard.textContent;
+        if (firstWordId === secondWordId && firstWordText!=event.target.textContent) {
             element.classList.add('correct');
             element.classList.add('fade-out');
             firstCard.classList.add('fade-out');
@@ -148,6 +150,8 @@ function selectExamCard(event) {
                 element.classList.remove('correct');
                 firstCard.classList.remove('correct');
             }, 500);
+            setTimeout(checkExamCardsAmount, 1100);
+         
         }
         else {
             element.classList.add('wrong');
@@ -155,9 +159,10 @@ function selectExamCard(event) {
                 element.classList.remove('wrong');
                 firstCard.classList.remove('correct');
             }, 500);
+            
         }
     }
-    checkExamCardsAmount();
+    
 }
 
 
