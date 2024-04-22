@@ -18,7 +18,7 @@
         <div class="sidebar">
           <div id="study-mode">
             <h3>
-              Слово <span id="current-word">1</span> из
+              Слово <span id="current-word"></span> из
               <span id="total-word">5</span>
             </h3>
             <progress id="words-progress" value="0" max="100">0%</progress>
@@ -37,13 +37,13 @@
                 <div class="flip-card-inner">
                   <div class="flip-card-front">
                     <div id="card-front">
-                      <h1></h1>
+                      <h1 id="eng"></h1>
                     </div>
                   </div>
                   <div class="flip-card-back" id="card-back">
                     <div>
-                      <h1></h1>
-                      <p><b>Пример:</b> <span></span></p>
+                      <h1 id = "rus"></h1>
+                      <p><b>Пример:</b> <span id = "example"></span></p>
                     </div>
                   </div>
                 </div>
@@ -71,6 +71,7 @@
         </template>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
